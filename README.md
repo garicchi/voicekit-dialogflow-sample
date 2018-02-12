@@ -8,7 +8,7 @@ function response(con,replyCallback){
     let userSpeech = con.body.result.resolvedQuery;
 
     if(action==='gabage.get'){
-        getGabage(SHEET_ID,SHEET_CRE,param.weekda)
+        getGabage(SHEET_ID,SHEET_CRE,param.weekday)
         .then((value)=>{
             let msg = param.weekday+"は"+value+"ゴミの日です";
             speech = makeSimpleResponse(msg,msg);
