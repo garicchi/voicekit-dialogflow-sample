@@ -13,15 +13,31 @@ function response(con,replyCallback){
     let userSpeech = con.body.result.resolvedQuery; //ユーザーの発話
     
     //ここで応答を編集する
-
-    /* DialogFlowのaction名で応答の種類を分類する
+    
     if(action==='gabage.get'){
-        // makeSimpleResponseで応答を生成してreplyCallbackに渡すことで応答を返す
-        let msg = "応答文";
-        speech = makeSimpleResponse();
-        replyCallback(speech);
+        getGabage(SHEET_ID,SHEET_CRE,param.weekday)
+        .then((value)=>{
+            let msg = param.weekday+"は"+value+"ゴミの日です";
+            speech = makeSimpleResponse(msg,msg);
+            replyCallback(speech);
+        })
+        .catch((err)=>{
+            speech = makeSimpleResponse("エラーが発生しました",makeErrorMessage(err,con.body));
+            replyCallback(speech);
+        });
     }
-    */   
+    if(action==='gabage.set'){
+        setGabage(SHEET_ID,SHEET_CRE,param.weekday,param.gabage)
+        .then(()=>{
+            let msg = param.weekday+"に"+param.gabage+"ゴミを登録しました";
+            speech = makeSimpleResponse(msg,msg);
+            replyCallback(speech);
+        })
+        .catch((err)=>{
+            speech = makeSimpleResponse("エラーが発生しました",makeErrorMessage(err,con.body));
+            replyCallback(speech);
+        });
+    }
 }
 
 // httpserverを起動してDialogFlowからWebhookを受け取れるようにする
