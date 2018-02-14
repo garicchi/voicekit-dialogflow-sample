@@ -11,6 +11,8 @@ function response(con,replyCallback){
     let action = con.body.result.action;  //アクション名
     let param = con.body.result.parameters; //パラメータ
     let userSpeech = con.body.result.resolvedQuery; //ユーザーの発話
+    
+    //ここで応答を編集する
 
     /* DialogFlowのaction名で応答の種類を分類する
     if(action==='gabage.get'){
