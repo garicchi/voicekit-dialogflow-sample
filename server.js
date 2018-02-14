@@ -15,9 +15,9 @@ function response(con,replyCallback){
     //ここで応答を編集する
     
     if(action==='get-gabarge'){
-        getGabage(SHEET_ID,SHEET_CRE,param.weekday)
+        getGabage(SHEET_ID,SHEET_CRE,param.Weekday)
         .then((value)=>{
-            let msg = param.weekday+"は"+value+"ゴミの日です";
+            let msg = param.Weekday+"は"+value+"ゴミの日です";
             speech = makeSimpleResponse(msg,msg);
             replyCallback(speech);
         })
@@ -27,9 +27,9 @@ function response(con,replyCallback){
         });
     }
     if(action==='set-gabarge'){
-        setGabage(SHEET_ID,SHEET_CRE,param.weekday,param.gabage)
+        setGabage(SHEET_ID,SHEET_CRE,param.Weekday,param.gabage)
         .then(()=>{
-            let msg = param.weekday+"に"+param.gabage+"ゴミを登録しました";
+            let msg = param.Weekday+"に"+param.gabage+"ゴミを登録しました";
             speech = makeSimpleResponse(msg,msg);
             replyCallback(speech);
         })
