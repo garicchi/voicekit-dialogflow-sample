@@ -27,7 +27,7 @@ function response(con,replyCallback){
         });
     }
     if(action==='set-garbage'){
-        setGabage(SHEET_ID,SHEET_CRE,param.Weekday,param.gabage)
+        setGabage(SHEET_ID,SHEET_CRE,param.Weekday,param.garbage)
         .then(()=>{
             let msg = param.Weekday+"に"+param.gabage+"ゴミを登録しました";
             speech = makeSimpleResponse(msg,msg);
