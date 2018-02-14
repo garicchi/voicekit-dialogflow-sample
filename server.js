@@ -14,7 +14,7 @@ function response(con,replyCallback){
     
     //ここで応答を編集する
     
-    if(action==='get-gabarge'){
+    if(action==='get-garbage'){
         getGabage(SHEET_ID,SHEET_CRE,param.Weekday)
         .then((value)=>{
             let msg = param.Weekday+"は"+value+"ゴミの日です";
@@ -26,7 +26,7 @@ function response(con,replyCallback){
             replyCallback(speech);
         });
     }
-    if(action==='set-gabarge'){
+    if(action==='set-garbage'){
         setGabage(SHEET_ID,SHEET_CRE,param.Weekday,param.gabage)
         .then(()=>{
             let msg = param.Weekday+"に"+param.gabage+"ゴミを登録しました";
