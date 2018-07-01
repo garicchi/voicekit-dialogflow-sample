@@ -4,7 +4,7 @@ const fs = require('fs');
 
 const SHEET_CRE = JSON.parse(fs.readFileSync('spread_sheet.json'));
 //自分のGoogleSpreadSheetのIDに置き換える
-const SHEET_ID = '{ your google spread sheet id }}';
+const SHEET_ID = '{{ your google spread sheet id }}';
 
 // fullfillment webhookが来た時にどのような応答を返すかを定義する
 function response(con,replyCallback){
