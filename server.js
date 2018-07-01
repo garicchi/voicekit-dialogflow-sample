@@ -4,13 +4,14 @@ const fs = require('fs');
 
 const SHEET_CRE = JSON.parse(fs.readFileSync('spread_sheet.json'));
 //自分のGoogleSpreadSheetのIDに置き換える
-const SHEET_ID = '{{ your google spread sheet id }}';
+const SHEET_ID = '1DTwtt_xTKX2trNMEA4Kn1fLIdqtkKGv7XWegHAXlNo0';
 
 // fullfillment webhookが来た時にどのような応答を返すかを定義する
 function response(con,replyCallback){
-    let action = con.body.result.action;  //アクション名
-    let param = con.body.result.parameters; //パラメータ
-    let userSpeech = con.body.result.resolvedQuery; //ユーザーの発話
+    //console.log(JSON.stringify(con.body.queryResult.intent));
+    let action = con.body.queryResult.action;  //アクション名
+    let param = con.body.queryResult.parameters; //パラメータ
+    let userSpeech = con.body.queryResult.queryText; //ユーザーの発話
     
     //ここで応答を編集する
     
@@ -48,7 +49,7 @@ http.createServer((req, res) => {
     })
     .then((con)=>getBody(con))
     .then((con)=>response(con,function(s){
-        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'});
         res.end(JSON.stringify(s));
     }));
     
@@ -173,29 +174,10 @@ function getCell(sheet,row_index,col_index){
 
 function makeSimpleResponse(speech,displayText){
     return {
-        speech:speech,
-        displayText:displayText
+        fulfillmentText:speech
     }
 }
 
-function makeLinkResponse(speech,displayText,url,label){
-    return {
-        messages: [
-            {
-                displayText: displayText,
-                platform: "google",
-                textToSpeech: speech,
-                type: "simple_response"
-            },
-            {
-                destinationName: label,
-                platform: "google",
-                type: "link_out_chip",
-                url: url
-              }
-          ]
-    }
-}
 
 function makeErrorMessage(err,body){
     return "エラーが発生しました "+"["+err+"] "+JSON.stringify(body.result,null," ");
